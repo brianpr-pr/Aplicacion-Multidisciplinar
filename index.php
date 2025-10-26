@@ -1,5 +1,6 @@
 <?php
 include "./componentes/datosFinancieros.php";
+include "./componentes/pan.php";
 include "./componentes/utilidades.php";
 ?>
 <!DOCTYPE html>
@@ -15,6 +16,8 @@ include "./componentes/utilidades.php";
 <?php
 $outputCapitalInvertir = "";
 $outputCuentaAhorros = "";
+$outputPan = "";
+
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     if(isset($_POST['capital'], $_POST['interes'], $_POST['años'] )){
@@ -44,6 +47,16 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             $outputCuentaAhorros .= getInteresesCuentaAhorro($_POST['capitalCuentaAhorro'], $_POST['interesCuentaAhorro'], $_POST['añosCuentaAhorro']);
         } else{
             $outputCuentaAhorros .= $validacionResultados[1];
+        }
+    }
+
+    if(isset($_POST['panFresco'], $_POST['panAntiguo'])){
+        $datosEnviados = validarCantidadPan($_POST['panFresco'], $_POST['panAntiguo']);
+        //Calculo interes compuesto.
+        if($datosEnviados[0]){ 
+            $outputPan .= resultadoCompra($_POST['panFresco'], $_POST['panAntiguo']);
+        } else{
+            $outputPan .= $datosEnviados[1];
         }
     }
 }
@@ -90,6 +103,24 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         <br>
         <h2><?php echo $outputCuentaAhorros;?></h2>
     </div>
+    <br>
 
+    <div class="div-app">
+        <h1>Panaderia.</h1>
+        <h2>El precio del pan fresco es de 3.49$<br>Con un descuento del 60% si es de otro día.</h2>
+        <form method="POST">
+            <label for="panFresco" id="" class="">Ingrese el número de unidades de pan fresco que desea comprar.</label>
+            <input type="number" id="panFresco" class="" name="panFresco"/>
+
+            <label for="panAntiguo" id="" class="">Ingrese la cantidad de panes de otro día que desea comprar.</label>
+            <input type="number" id="panAntiguo" class="" name="panAntiguo"/>
+
+            <button type="submit" id="" class="">Enviar</button>
+            <button type="reset" id="" class="">Cancelar</button>
+        </form>
+        <br>
+        <h2><?php echo $outputPan; ?></h2>
+    </div>
+    <br>
 </body>
 </html>

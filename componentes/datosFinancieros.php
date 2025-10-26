@@ -10,7 +10,7 @@ function validarCapital($cantidad){
         return [false, "<br>Error: El capital tiene que ser un número.<br>"];
     }
 
-    if($cantidad < 0){
+    if($cantidad <= 0){
         return [false, "<br>Error: El capital tiene que ser un número mayor a 0.<br>"];
     }
 
@@ -28,7 +28,7 @@ function validarInteres($cantidad){
         return [false, "<br>Error: El interes tiene que ser un número.<br>"];
     }
 
-    if($cantidad < 0){
+    if($cantidad <= 0){
         return [false, "<br>Error: El interes tiene que ser un número mayor a 0.<br>"];
     }
 
@@ -46,7 +46,7 @@ function validarAños($años){
         return [false, "<br>Error: La cantidad de años ingresada tiene que ser un número.<br>"];
     }
 
-    if($años < 0){
+    if($años <= 0){
         return [false, "<br>Error: La cantidad de años ingresada tiene que ser un número mayor a 0.<br>"];
     }
     return $años;
