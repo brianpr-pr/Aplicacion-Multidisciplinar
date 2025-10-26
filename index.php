@@ -2,6 +2,7 @@
 include "./componentes/datosFinancieros.php";
 include "./componentes/pan.php";
 include "./componentes/telefono.php";
+include "./componentes/fecha.php";
 include "./componentes/utilidades.php";
 ?>
 <!DOCTYPE html>
@@ -12,7 +13,6 @@ include "./componentes/utilidades.php";
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
-
 
 <?php
 $outputCapitalInvertir = "";
@@ -92,13 +92,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         <h2>Ingrese su fecha de nacimiento.</h2>
         <form method="POST">
             <label for="fecha" id="" class="">Ingrese su fecha de nacimiento.</label>
-            <input type="string" id="fecha" class="" name="fecha"/>
+            <input type="date" id="fecha" class="" name="fecha"/>
 
             <button type="submit" id="" class="">Enviar</button>
             <button type="reset" id="" class="">Cancelar</button>
         </form>
         <br>
-        <h2><?php echo $outputEdad; ?></h2>
+        <h2><?php echo $outputTelefono; ?></h2>
     </div>
     <br>
 
