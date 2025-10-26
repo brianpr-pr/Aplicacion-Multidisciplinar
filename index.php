@@ -3,6 +3,7 @@ include "./componentes/datosFinancieros.php";
 include "./componentes/pan.php";
 include "./componentes/telefono.php";
 include "./componentes/fecha.php";
+include "./componentes/contraseña.php";
 include "./componentes/utilidades.php";
 ?>
 <!DOCTYPE html>
@@ -20,6 +21,7 @@ $outputCuentaAhorros = "";
 $outputPan = "";
 $outputTelefono = "";
 $outputEdad = "";
+$outputContraseña = "";
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -81,12 +83,33 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             $outputTelefono .= $validacionResultados[1];
         }
     }
-}
 
+    if(isset($_POST['contraseña'], $_POST['contraseña'])){
+            $outputContraseña .= validarContraseñas($_POST['contraseña'], $_POST['contraseñaRepetida']);
+        }
+    }
 ?>
 
 
 <body>
+    <div class="div-app">
+        <h1>Contraseña</h1>
+        <h2>Ingrese su contraseña 2 veces para confirmar que es correcta.</h2>
+        <form method="POST">
+            <label for="contraseña" id="" class="">Ingrese su contraseña.</label>
+            <input type="password" id="contraseña" class="" name="contraseña"/>
+
+            <label for="contraseñaRepetida" id="" class="">Ingrese su contraseña de nuevo.</label>
+            <input type="password" id="contraseñaRepetida" class="" name="contraseñaRepetida"/>
+
+            <button type="submit" id="" class="">Enviar</button>
+            <button type="reset" id="" class="">Cancelar</button>
+        </form>
+        <br>
+        <h2><?php echo $outputContraseña; ?></h2>
+    </div>
+    <br>
+
     <div class="div-app">
         <h1>Fecha de nacimiento</h1>
         <h2>Ingrese su fecha de nacimiento.</h2>
