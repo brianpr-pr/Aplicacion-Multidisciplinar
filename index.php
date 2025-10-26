@@ -1,6 +1,7 @@
 <?php
 include "./componentes/datosFinancieros.php";
 include "./componentes/pan.php";
+include "./componentes/telefono.php";
 include "./componentes/utilidades.php";
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,7 @@ include "./componentes/utilidades.php";
 $outputCapitalInvertir = "";
 $outputCuentaAhorros = "";
 $outputPan = "";
+$outputTelefono = "";
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -51,12 +53,21 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     }
 
     if(isset($_POST['panFresco'], $_POST['panAntiguo'])){
-        $datosEnviados = validarCantidadPan($_POST['panFresco'], $_POST['panAntiguo']);
-        //Calculo interes compuesto.
-        if($datosEnviados[0]){ 
+        $validacionResultados = validarCantidadPan($_POST['panFresco'], $_POST['panAntiguo']);
+        if($validacionResultados[0]){ 
             $outputPan .= resultadoCompra($_POST['panFresco'], $_POST['panAntiguo']);
         } else{
-            $outputPan .= $datosEnviados[1];
+            $outputPan .= $validacionResultados[1];
+        }
+    }
+
+    if(isset($_POST['telefono'])){
+        $_POST['telefono'] = validarTelefono($_POST['telefono']);
+        $validacionResultados = comprobarDatos($_POST);
+        if($validacionResultados[0]){ 
+            $outputTelefono .= resultadoTelefono($_POST['telefono']);
+        } else{
+            $outputTelefono .= $validacionResultados[1];
         }
     }
 }
@@ -120,6 +131,21 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         </form>
         <br>
         <h2><?php echo $outputPan; ?></h2>
+    </div>
+    <br>
+
+    <div class="div-app">
+        <h1>Número de telefono.</h1>
+        <h2>Ingrese su número de telefono</h2>
+        <form method="POST">
+            <label for="telefono" id="" class="">Ingrese el número de telefono en formato NN-NNNNNNNNN-NN.</label>
+            <input type="string" id="telefono" class="" name="telefono"/>
+
+            <button type="submit" id="" class="">Enviar</button>
+            <button type="reset" id="" class="">Cancelar</button>
+        </form>
+        <br>
+        <h2><?php echo $outputTelefono; ?></h2>
     </div>
     <br>
 </body>
