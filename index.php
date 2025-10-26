@@ -19,6 +19,7 @@ $outputCapitalInvertir = "";
 $outputCuentaAhorros = "";
 $outputPan = "";
 $outputTelefono = "";
+$outputEdad = "";
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
@@ -70,14 +71,40 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             $outputTelefono .= $validacionResultados[1];
         }
     }
+
+    if(isset($_POST['fecha'])){
+        $_POST['fecha'] = validarFecha($_POST['fecha']);
+        $validacionResultados = comprobarDatos($_POST);
+        if($validacionResultados[0]){ 
+            $outputTelefono .= resultadoFecha($_POST['fecha']);
+        } else{
+            $outputTelefono .= $validacionResultados[1];
+        }
+    }
 }
 
 ?>
 
 
 <body>
+    <div class="div-app">
+        <h1>Fecha de nacimiento</h1>
+        <h2>Ingrese su fecha de nacimiento.</h2>
+        <form method="POST">
+            <label for="fecha" id="" class="">Ingrese su fecha de nacimiento.</label>
+            <input type="string" id="fecha" class="" name="fecha"/>
+
+            <button type="submit" id="" class="">Enviar</button>
+            <button type="reset" id="" class="">Cancelar</button>
+        </form>
+        <br>
+        <h2><?php echo $outputEdad; ?></h2>
+    </div>
+    <br>
+
+
     <div id="" class="div-app">
-        <h1>Invertir capital.</h1>
+        <h1>Invertir capital</h1>
         <form method="POST">
             <label for="capital" id="" class="">Ingrese la cantidad a invertir.</label>
             <input type="number" id="capital" class="" name="capital"/>
@@ -97,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <br>
 
     <div class="div-app">
-        <h1>Cuenta de ahorros.</h1>
+        <h1>Cuenta de ahorros</h1>
         <form method="POST">
             <label for="capitalCuentaAhorro" id="" class="">Ingrese la cantidad a invertir.</label>
             <input type="number" id="capitalCuentaAhorro" class="" name="capitalCuentaAhorro"/>
@@ -117,8 +144,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <br>
 
     <div class="div-app">
-        <h1>Panaderia.</h1>
-        <h2>El precio del pan fresco es de 3.49$<br>Con un descuento del 60% si es de otro día.</h2>
+        <h1>Panaderia</h1>
+        <h2>El precio del pan fresco es de 3.49$.<br>Con un descuento del 60% si es de otro día.</h2>
         <form method="POST">
             <label for="panFresco" id="" class="">Ingrese el número de unidades de pan fresco que desea comprar.</label>
             <input type="number" id="panFresco" class="" name="panFresco"/>
@@ -135,8 +162,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <br>
 
     <div class="div-app">
-        <h1>Número de telefono.</h1>
-        <h2>Ingrese su número de telefono</h2>
+        <h1>Número de telefono</h1>
+        <h2>Ingrese su número de telefono.</h2>
         <form method="POST">
             <label for="telefono" id="" class="">Ingrese el número de telefono en formato NN-NNNNNNNNN-NN.</label>
             <input type="string" id="telefono" class="" name="telefono"/>
