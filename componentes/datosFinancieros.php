@@ -59,3 +59,12 @@ function getInteresCompuesto($capitalInicial, $interesCompuesto, $numeroAños){
     }
     return $capitalInicial;
 }
+
+function getInteresesCuentaAhorro($capitalInicial, $interesCompuesto, $numeroAños){
+    $resultado = "Año 0: {$capitalInicial}<br>";
+    for($i=1; $i<=$numeroAños; $i++){
+        $capitalInicial += $capitalInicial / 100 * $interesCompuesto;
+        $resultado .= "Año {$i}: {$capitalInicial}<br>";
+    }
+    return $resultado;
+}

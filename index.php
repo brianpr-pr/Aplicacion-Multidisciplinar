@@ -13,8 +13,8 @@ include "./componentes/utilidades.php";
 
 
 <?php
-$outputFinanzas = "";
-
+$outputCapitalInvertir = "";
+$outputCuentaAhorros = "";
 if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     if(isset($_POST['capital'], $_POST['interes'], $_POST['años'] )){
@@ -26,9 +26,24 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         
         //Calculo interes compuesto.
         if($validacionResultados[0]){ 
-            $outputFinanzas .= getInteresCompuesto($_POST['capital'], $_POST['interes'], $_POST['años']);
+            $outputCapitalInvertir .= getInteresCompuesto($_POST['capital'], $_POST['interes'], $_POST['años']);
         } else{
-            $outputFinanzas .= $validacionResultados[1];
+            $outputCapitalInvertir .= $validacionResultados[1];
+        }
+    }
+
+    if(isset($_POST['capitalCuentaAhorro'], $_POST['interesCuentaAhorro'], $_POST['añosCuentaAhorro'] )){
+        $_POST['capitalCuentaAhorro'] = validarCapital($_POST['capitalCuentaAhorro']);
+        $_POST['interesCuentaAhorro'] = validarInteres($_POST['interesCuentaAhorro']);
+        $_POST['añosCuentaAhorro'] = validarAños($_POST['añosCuentaAhorro']);
+
+        $validacionResultados = comprobarDatos($_POST);
+        
+        //Calculo interes compuesto.
+        if($validacionResultados[0]){ 
+            $outputCuentaAhorros .= getInteresesCuentaAhorro($_POST['capitalCuentaAhorro'], $_POST['interesCuentaAhorro'], $_POST['añosCuentaAhorro']);
+        } else{
+            $outputCuentaAhorros .= $validacionResultados[1];
         }
     }
 }
@@ -37,7 +52,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
 
 <body>
-    <div id="" class="">
+    <div id="" class="div-app">
+        <h1>Invertir capital.</h1>
         <form method="POST">
             <label for="capital" id="" class="">Ingrese la cantidad a invertir.</label>
             <input type="number" id="capital" class="" name="capital"/>
@@ -51,9 +67,29 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
             <button type="submit" id="" class="">Enviar</button>
             <button type="reset" id="" class="">Cancelar</button>
         </form>
+        <br>
+        <h2><?php echo $outputCapitalInvertir;?></h2>
     </div>
     <br>
-    <h2><?php echo $outputFinanzas;?></h2>
-    <br>
+
+    <div class="div-app">
+        <h1>Cuenta de ahorros.</h1>
+        <form method="POST">
+            <label for="capitalCuentaAhorro" id="" class="">Ingrese la cantidad a invertir.</label>
+            <input type="number" id="capitalCuentaAhorro" class="" name="capitalCuentaAhorro"/>
+
+            <label for="interesCuentaAhorro" id="" class="">Ingrese el interes anual.</label>
+            <input type="number" id="interesCuentaAhorro" class="" name="interesCuentaAhorro"/>
+
+            <label for="añosCuentaAhorro" id="" class="">Ingrese la cantidad de años.</label>
+            <input type="number" id="añosCuentaAhorro" class="" name="añosCuentaAhorro"/>
+
+            <button type="submit" id="" class="">Enviar</button>
+            <button type="reset" id="" class="">Cancelar</button>
+        </form>
+        <br>
+        <h2><?php echo $outputCuentaAhorros;?></h2>
+    </div>
+
 </body>
 </html>
